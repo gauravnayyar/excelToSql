@@ -1,0 +1,88 @@
+{
+  "ItemCategory": {
+    "ExcelTableColumn": [
+      {
+        "ExcelColumnName": "ItemCategoryName",
+        "dataType": "varchar",
+        "ColumnPosition": 0
+      },
+      {
+        "ExcelColumnName": "ItemCode",
+        "dataType": "varchar",
+        "ColumnPosition": 1
+      },
+      {
+        "ExcelColumnName": "User",
+        "dataType": "Int",
+        "ColumnPosition": 2
+      },
+      {
+        "ExcelColumnName": "HSNValue",
+        "dataType": "varchar",
+        "ColumnPosition": 3
+      }
+    ],
+    "query": "Insert into [dbo].[ItemCategory] values ('ItemCategoryName', 'ItemCode','[{\"label\":\"Specification\",\"type\":\"text\",\"propertyname\":\"specification\"}]',NULL,1,User,GetDate(),NULL,NULL)\nInsert into [dbo].[ItemCategory_HSN_Map] values ((Select top 1 id from [dbo].[HSN] where Value='HSNValue'),(Select top 1 id from [dbo].[ItemCategory] order by 1 desc),1)\n\n\n\n"
+  },
+  "Transaction": {
+    "ExcelTableColumn": [
+      {
+        "ExcelColumnName": "TrancationCode",
+        "dataType": "varchar",
+        "ColumnPosition": 0
+      },
+      {
+        "ExcelColumnName": "TransType",
+        "dataType": "varchar",
+        "ColumnPosition": 1
+      },
+      {
+        "ExcelColumnName": "ContactName",
+        "dataType": "varchar",
+        "ColumnPosition": 2
+      },
+      {
+        "ExcelColumnName": "StateName",
+        "dataType": "varchar",
+        "ColumnPosition": 3
+      },
+
+      {
+        "ExcelColumnName": "ShipValue",
+        "dataType": "varchar",
+        "ColumnPosition": 4
+      },
+      {
+        "ExcelColumnName": "StoreName",
+        "dataType": "varchar",
+        "ColumnPosition": 5
+      },
+      {
+        "ExcelColumnName": "CreatedBy",
+        "dataType": "varchar",
+        "ColumnPosition": 6
+      },
+      {
+        "ExcelColumnName": "ItemNameValue",
+        "dataType": "varchar",
+        "ColumnPosition": 7
+      },
+      {
+        "ExcelColumnName": "Quantity",
+        "dataType": "Int",
+        "ColumnPosition": 8
+      },
+      {
+        "ExcelColumnName": "CreatedBy",
+        "dataType": "varchar",
+        "ColumnPosition": 9
+      },
+      {
+        "ExcelColumnName": "CreatedBy",
+        "dataType": "varchar",
+        "ColumnPosition": 10
+      }
+    ],
+    "query": "Insert into [dbo].[Transaction] values('TrancationCode',GETDATE(),(Select top 1 Id from [dbo].[TransactionTypeMaster] where TransactionType='TransType'),(Select top 1 Id from [dbo].[Contact] where Type='ContactName'),(Select top 1 Id from StateMaster where Name='StateName' order by 1 desc),' ',NULL,NULL,NULL,(Select top 1 id from [dbo].[ShipmentModeMaster] where ShipmentMode='ShipValue'),NULL,(Select top 1 Id from StoreMaster where Name='StoreName'),' ','CreatedBy',GETDATE(),NUll,Null,Null,Null,Null)\nInsert Into [dbo].[Transaction_Details] Values ((Select top 1 Id from [dbo].[Transaction] order by 1 desc),Null,(Select top 1 id from [dbo].[Item] where ItemName='ItemNameValue'),Quantity,0,0,1,0,GETDATE(),'CreatedBy',GETDATE(),Null,NUll)\nInsert Into [dbo].[Transaction_Tax_Details] Values((Select top  1 id from [dbo].[Transaction_Details] order by 1 desc),0,0,0,0,'CreatedBy',GETDATE(),NULL,NULL)\n\n\n"
+  }
+}
